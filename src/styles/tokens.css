@@ -1,0 +1,47 @@
+:root {
+    /* Цвета */
+    --light-blue-100: #f5f7f9;
+    --light-blue-200: #dfe5ec;
+    --light-blue-300: #c8d4df;
+
+    --brand: #526eff;
+    --brand-hover: #3652e3;
+    --brand-active: #233fd1;
+
+    --white: #ffffff;
+
+    --black: #000000;
+    --black-80: #111111;
+
+    /* Шрифты */
+    /* --font-family-base: "Inter", sans-serif; */
+
+    /* --heading-1-size: 72px;
+    --heading-1-line-height: 80px;
+    --heading-2-size: 64px;
+    --heading-2-line-height: 72px;
+    --heading-3-size: 56px;
+    --heading-3-line-height: 64px;
+    --heading-4-size: 48px;
+    --heading-4-line-height: 56px;
+    --heading-5-size: 40px;
+    --heading-5-line-height: 48px;
+    --heading-6-size: 32px;
+    --heading-6-line-height: 40px;
+    --heading-7-size: 24px;
+    --heading-7-line-height: 32px; */
+
+    /* Mobile / Heading 4 */
+    /* --mobile-heading-4-font: var(--font-family-inter); */
+    --mobile-heading-4-weight: 600;
+    --mobile-heading-4-size: 36px;
+    --mobile-heading-4-line-height: 44px;
+    --mobile-heading-4-letter-spacing: 0%;
+
+    /* M3 / Title / Large */
+    /* --title-large-font: var(--font-family-inter); */
+    --title-large-weight: 400;
+    --title-large-size: 22px;       /* ⚡ уточни в фигме, что за "Title Large/Size" */
+    --title-large-line-height: 28px;/* ⚡ тоже уточни */
+    --title-large-letter-spacing: 0%;
+}
