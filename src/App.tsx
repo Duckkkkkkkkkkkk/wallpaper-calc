@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { WelcomePage } from "./components/WelcomePage/WelcomePage";
 import { CalcPage } from "./components/CalcPage/CalcPage";
 import styles from "./App.module.css";
