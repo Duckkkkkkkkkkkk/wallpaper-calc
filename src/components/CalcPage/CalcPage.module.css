@@ -1,8 +1,56 @@
 .container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: start;
+  margin: 156px auto;
+  padding: 58px 80px;
+  background-color: var(--white);
+  border-radius: 18px;
 }
 
 .title {
-  font-size: 22px;
-  margin-bottom: 20px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 600;
+  margin: 42px 0 24px 0;
+  color: var(--black-80);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rowWithAddItems {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.addedRow {
+  display: flex;
+  gap: 16px;
+}
+
+.addedRow:empty {
+  display: none;
+}
+
+.itemsRow {
+  max-width: 840px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.calc {
+  margin-top: 73px;
 }
