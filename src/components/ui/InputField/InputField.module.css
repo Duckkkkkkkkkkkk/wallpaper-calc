@@ -1,0 +1,58 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: start;
+}
+
+.label {
+  font-size: 14px;
+  color: var(--black-80);
+}
+
+.input {
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--black-32);
+  width: 266px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.input:hover {
+  border: 1px solid var(--black-48);
+}
+
+.input:focus {
+  border: 1px solid var(--black-64);
+}
+
+.input:focus-visible {
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--black-32);
+  transition: color 0.2s ease;
+}
+
+.input:focus::placeholder {
+  color: transparent;
+}
+
+.filled {
+  color: var(--black-64);
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type="number"] {
+  -moz-appearance: textfield; /* для Firefox */
+}
