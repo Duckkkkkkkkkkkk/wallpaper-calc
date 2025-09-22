@@ -7,11 +7,17 @@
     --brand: #526eff;
     --brand-hover: #3652e3;
     --brand-active: #233fd1;
+    /* --brand-opacity: rgba(82, 110, 255, 0.2); */
 
     --white: #ffffff;
 
     --black: #000000;
-    --black-80: #111111;
+    --black-80: rgba(17, 17, 17, 0.8);
+    --black-64: rgba(17, 17, 17, 0.64);
+    --black-48: rgba(0, 0, 0, 0.48);
+    --black-32: rgba(17, 17, 17, 0.32);
+    --black-24: rgba(0, 0, 0, 0.24);
+    --black-16: rgba(0, 0, 0, 0.16);
 
     /* Шрифты */
     /* --font-family-base: "Inter", sans-serif; */
