@@ -61,13 +61,7 @@
   appearance: textfield;
 }
 
-@media (max-width: 768px) {
-  .input {
-    width: 320px;
-  }
-}
-
-@media (max-width: 480px) {
+@media (max-width: 768px) and (min-width: 380px) {
   .input {
     width: 320px;
   }

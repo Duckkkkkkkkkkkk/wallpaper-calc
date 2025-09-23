@@ -32,7 +32,7 @@
   border-radius: 50%;
   background: var(--brand);
   opacity: 0.2;
-  margin: 0 auto 8px;
+  margin: 0 auto 10px;
   font-size: 22px;
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
@@ -42,7 +42,7 @@
   background: var(--brand-hover);
 }
 
-.block:active .icon {
+.block:focus .icon {
   opacity: 1;
   background: var(--brand-active);
 }
@@ -52,6 +52,12 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--black-80);
+}
+
+@media (max-width: 480px) {
+  .block {
+    width: 100%;
+  }
 }

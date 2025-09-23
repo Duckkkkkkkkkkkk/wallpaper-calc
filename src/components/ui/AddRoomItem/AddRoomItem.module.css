@@ -33,3 +33,9 @@
   background: transparent;
   cursor: pointer;
 }
+
+@media (max-width: 480px) {
+  .block {
+    width: 100%;
+  }
+}

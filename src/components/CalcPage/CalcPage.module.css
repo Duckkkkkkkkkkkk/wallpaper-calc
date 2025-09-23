@@ -8,8 +8,8 @@
   background-color: var(--white);
   border-radius: 18px;
 
-  width: fit-content; /* контейнер обнимает содержимое */
-  max-width: calc(100% - 40px); /* отступы по бокам на мобильных */
+  width: fit-content;
+  max-width: calc(100% - 40px);
   box-sizing: border-box;
 }
 
@@ -23,10 +23,8 @@
 
 .row {
   display: flex;
-  /* flex-wrap: wrap; */
   justify-content: space-between;
   width: 100%;
-
   gap: 40px;
 }
 
@@ -60,6 +58,26 @@
 
 .calc {
   margin-top: 73px;
+  width: 100%;
+}
+
+.results {
+  margin-top: 32px;
+  padding: 20px;
+  background-color: var(--brand-light);
+  border-radius: 12px;
+  width: 100%;
+}
+
+.results h3 {
+  margin: 0 0 12px 0;
+  color: var(--black-80);
+}
+
+.results p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: var(--black-64);
 }
 
 @media (max-width: 768px) {
@@ -78,18 +96,13 @@
     max-width: 100%;
     gap: 12px;
   }
-  
-  /* .calc {
-    margin-top: 50px;
-  } */
 }
 
-/* Мобильная версия (480px и меньше) */
 @media (max-width: 480px) {
   .container {
     margin: 20px auto;
     padding: 24px 20px;
-    max-width: calc(100% - 16px); /* минимальные отступы по бокам */
+    max-width: calc(100% - 16px);
     border-radius: 12px;
   }
   
@@ -101,8 +114,4 @@
     gap: 8px;
     justify-content: flex-start;
   }
-  
-  /* .calc {
-    margin-top: 40px;
-  } */
 }
