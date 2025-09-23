@@ -44,13 +44,13 @@ export function CalcPage() {
         <OptionGroup
           title="Параметры рулона"
           options={["1.06 x 10м", "1.06 x 25м"]}
-          widths={[142, 180]}
+          widths={{ desktop: [142, 180], mobile: [118, 148] }}
           defaultValue="1.06 x 10м"
         />
         <OptionGroup
           title="Раппорт"
           options={["0", "0.32м", "0.64м"]}
-          widths={[74, 142, 180]}
+          widths={{ desktop: [74, 142, 180], mobile: [50, 118, 148] }}
           defaultValue="0"
         />
       </div>

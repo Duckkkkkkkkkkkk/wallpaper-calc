@@ -6,7 +6,9 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
   color: var(--black-80);
 }
 
@@ -50,9 +52,23 @@
 .input::-webkit-outer-spin-button,
 .input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 .input[type="number"] {
-  -moz-appearance: textfield; /* для Firefox */
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+@media (max-width: 768px) {
+  .input {
+    width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .input {
+    width: 320px;
+  }
 }

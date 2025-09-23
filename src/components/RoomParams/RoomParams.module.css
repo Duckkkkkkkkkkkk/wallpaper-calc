@@ -8,6 +8,31 @@
 }
 
 .row {
-  display: flex;
+  display: grid;
   gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .row {
+    /* grid-template-columns: 1fr;
+    flex-direction: column; поля ввода становятся друг под другом */
+    gap: 12px;
+  }
 }

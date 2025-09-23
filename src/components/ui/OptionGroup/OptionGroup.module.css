@@ -1,5 +1,6 @@
 .wrapper {
   margin-top: 42px;
+  width: 100%;
 }
 
 .title {
@@ -13,5 +14,30 @@
 .pills { 
   display: flex;
   gap: 16px;
-  flex-wrap: wrap; 
+}
+
+@media (max-width: 1024px) {
+  .pills {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    margin-top: 32px;
+  }
+  
+  .pills {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    margin-top: 24px;
+  }
+
+  .pills {
+    gap: 8px;
+  }
 }

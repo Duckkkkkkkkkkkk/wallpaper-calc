@@ -11,6 +11,11 @@
   line-height: 24px;
   cursor: pointer;
   transition: background-color 0.3s ease, opacity 0.3s ease;
+
+  text-align: center;
+  box-sizing: border-box;
+  height: 57px;
+  white-space: nowrap;
 }
 
 .pill:hover {
@@ -26,4 +31,24 @@
 .active {
   background: var(--brand);
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .pill {
+    padding: 13px 26px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pill {
+    padding: 9px 20px;
+
+  }
+}
+
+@media (max-width: 360px) {
+  .pill {
+    width: 100%;
+    flex: none;
+  }
 }
