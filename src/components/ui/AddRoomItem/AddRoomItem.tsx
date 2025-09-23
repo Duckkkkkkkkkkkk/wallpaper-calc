@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { InputField } from "../InputField/InputField";
 import close_icon from "../../../assets/icons/close.svg";
 import styles from "./AddRoomItem.module.css";
@@ -6,10 +6,24 @@ import styles from "./AddRoomItem.module.css";
 interface AddRoomItemProps {
   type: "Окно" | "Дверь";
   onRemove: () => void;
+  onDataChange: (field: "width" | "height", value: string) => void;
+  data: { width: string; height: string };
 }
 
-export function AddRoomItem({ type, onRemove }: AddRoomItemProps) {
-  const [vals, setVals] = useState({ width: "", height: "" });
+export function AddRoomItem({ type, onRemove, onDataChange, data }: AddRoomItemProps) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 480);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const inputWidth = isMobile ? 134 : 107;
+
+  const handleValueChange = (field: "width" | "height", value: string) => {
+    onDataChange(field, value);
+  };
 
   return (
     <div className={styles.block}>
@@ -20,17 +34,17 @@ export function AddRoomItem({ type, onRemove }: AddRoomItemProps) {
       <div className={styles.inputs}>
         <InputField
           label="Ширина"
-          value={vals.width}
-          onChange={(v) => setVals((s) => ({ ...s, width: v }))}
+          value={data.width}
+          onChange={(v) => handleValueChange("width", v)}
           placeholder="0"
-          style={{ width: "107px" }}
+          style={{ width: `${inputWidth}px` }}
         />
         <InputField
           label="Высота"
-          value={vals.height}
-          onChange={(v) => setVals((s) => ({ ...s, height: v }))}
+          value={data.height}
+          onChange={(v) => handleValueChange("height", v)}
           placeholder="0"
-          style={{ width: "107px" }}
+          style={{ width: `${inputWidth}px` }}
         />
       </div>
     </div>
