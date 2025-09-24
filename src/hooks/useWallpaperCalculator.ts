@@ -65,7 +65,9 @@ export const calculateRollsNeeded = (
 
   const totalStripsNeeded = Math.ceil(wallArea / (rollWidth * height));
 
-  const stripsPerRoll = Math.floor(rollLength / stripHeight);
+  // const stripsPerRoll = Math.floor(rollLength / stripHeight);
+
+  const stripsPerRoll = Math.max(1, Math.floor(rollLength / stripHeight));
 
   const rolls = Math.ceil(totalStripsNeeded / stripsPerRoll);
 
@@ -88,10 +90,15 @@ export const useWallpaperCalculator = () => {
     windows: Opening[],
     doors: Opening[]
   ): CalculationResult => {
-
     const length = parseFloat(roomDimensions.length) || 0;
     const width = parseFloat(roomDimensions.width) || 0;
     const height = parseFloat(roomDimensions.height) || 0;
+
+    if (length <= 0 || width <= 0 || height <= 0) {
+      const emptyResult = { rolls: 0, wallpaperArea: 0, wallArea: 0 };
+      setCalculation(emptyResult);
+      return emptyResult;
+    }
 
     const rollParams = ROLL_PARAMETERS[rollType as keyof typeof ROLL_PARAMETERS] || ROLL_PARAMETERS['1.06 x 10м'];
     const rapportValue = parseFloat(rapport) || 0;
@@ -104,7 +111,9 @@ export const useWallpaperCalculator = () => {
     return result;
   };
 
-  return { calculation, calculate };
+  const reset = () => setCalculation(null);
+
+  return { calculation, calculate, reset };
 };
 
 export const formatCalculationResult = (result: CalculationResult): string => {

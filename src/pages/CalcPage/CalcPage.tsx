@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef} from "react";
 import { RoomParams } from "../../components/RoomParams/RoomParams";
 import { OptionGroup } from "../../components/ui/OptionGroup/OptionGroup";
 import { AddBlock } from "../../components/ui/AddBlock/AddBlock";
 import { AddRoomItem } from "../../components/AddRoomItem/AddRoomItem";
 import { CalcButton } from "../../components/СalcButton/CalcButton";
 import { useWallpaperCalculator } from "../../hooks/useWallpaperCalculator";
+import { CalcResults } from "../../components/CalcResults/CalcResults";
+import type { RoomData } from "../../components/RoomParams/RoomParams";
 
 import styles from "./CalcPage.module.css";
 
 import magic_wand_icon from "../../assets/icons/magic-wand.svg"
-import { CalcResults } from "../../components/CalcResults/CalcResults";
-
-interface RoomData {
-  length: string;
-  width: string;
-  height: string;
-}
 
 interface OpeningData {
   id: string;
@@ -30,8 +25,9 @@ export function CalcPage() {
   const [windows, setWindows] = useState<OpeningData[]>([]);
   const [doors, setDoors] = useState<OpeningData[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const { calculation, calculate } = useWallpaperCalculator();
+  const { calculation, calculate, reset } = useWallpaperCalculator();
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 480);
@@ -39,7 +35,40 @@ export function CalcPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Обработчик для данных комнаты
+  const inputRefs = {
+    length: useRef<HTMLInputElement>(null),
+    width: useRef<HTMLInputElement>(null),
+    height: useRef<HTMLInputElement>(null),
+  };
+
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!roomData.length) newErrors.length = "Вы не заполнили это поле";
+    if (!roomData.width) newErrors.width = "Вы не заполнили это поле";
+    if (!roomData.height) newErrors.height = "Вы не заполнили это поле";
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length > 0) {
+      const firstKey = Object.keys(newErrors)[0] as keyof typeof inputRefs;
+      inputRefs[firstKey].current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+      inputRefs[firstKey].current?.focus();
+      return false;
+    }
+    return true;
+  };
+
+  const clearError = (field: keyof RoomData) => {
+    setErrors((prev) => {
+      const newErrors = { ...prev };
+      delete newErrors[field];
+      return newErrors;
+    });
+  };
+  
   const handleRoomDataChange = (newData: RoomData) => {
     setRoomData(newData);
   };
@@ -63,7 +92,6 @@ export function CalcPage() {
     else setDoors((s) => s.filter((d) => d.id !== id));
   };
 
-  // Обновление данных окон/дверей
   const handleOpeningChange = (type: "window" | "door", id: string, field: "width" | "height", value: string) => {
     const setter = type === "window" ? setWindows : setDoors;
     setter(prev => prev.map(item => 
@@ -71,8 +99,12 @@ export function CalcPage() {
     ));
   };
 
-  // Функция расчета
   const handleCalculate = () => {
+    if (!validate()) {
+      reset();
+      return;
+    }
+
     const result = calculate(
       roomData,
       rollType,
@@ -82,14 +114,18 @@ export function CalcPage() {
     );
 
     console.log("Результаты расчета:", result);
-    // Здесь можно добавить отображение результатов в UI
-    alert(`Результаты расчета:\nРулоны: ${result.rolls} шт.\nПлощадь обоев: ${result.wallpaperArea} м²\nПлощадь оклейки: ${result.wallArea} м²`);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.topRow}>
-        <RoomParams onDataChange={handleRoomDataChange} />
+        <RoomParams 
+          roomData={roomData}
+          onDataChange={handleRoomDataChange}
+          errors={errors}
+          inputRefs={inputRefs}
+          onClearError={clearError}
+        />
       </div>
 
       <div className={styles.row}>
@@ -97,14 +133,14 @@ export function CalcPage() {
           title="Параметры рулона"
           options={["1.06 x 10м", "1.06 x 25м"]}
           widths={{ desktop: [142, 180], mobile: [118, 148] }}
-          defaultValue="1.06 x 10м"
+          value={rollType}
           onChange={setRollType}
         />
         <OptionGroup
           title="Раппорт"
           options={["0", "0.32м", "0.64м"]}
           widths={{ desktop: [74, 142, 180], mobile: [50, 118, 148] }}
-          defaultValue="0"
+          value={rapport}
           onChange={setRapport}
         />
       </div>
@@ -163,8 +199,12 @@ export function CalcPage() {
           wallpaperArea={calculation.wallpaperArea}
           wallArea={calculation.wallArea}
           onReset={() => {
+            setRoomData({ length: "", width: "", height: "" });
+            setRollType("1.06 x 10м");
+            setRapport("0");
             setWindows([]);
             setDoors([]);
+            reset();
           }}
           onGoToCatalog={() => console.log("Переход в каталог")}
         />

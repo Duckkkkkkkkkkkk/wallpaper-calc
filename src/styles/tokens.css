@@ -24,4 +24,6 @@
     --black-64: rgba(17, 17, 17, 0.64);
     --black-48: rgba(17, 17, 17, 0.48);
     --black-32: rgba(17, 17, 17, 0.32);
+
+    --error-juice: #db524e;
 }
