@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { InputField } from "../InputField/InputField";
-import close_icon from "../../../assets/icons/close.svg";
+import { InputField } from "../ui/InputField/InputField";
+
 import styles from "./AddRoomItem.module.css";
+
+import close_icon from "../../assets/icons/close.svg";
 
 interface AddRoomItemProps {
   type: "Окно" | "Дверь";

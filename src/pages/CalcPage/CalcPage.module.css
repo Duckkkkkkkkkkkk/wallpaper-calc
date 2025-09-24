@@ -61,25 +61,6 @@
   width: 100%;
 }
 
-.results {
-  margin-top: 32px;
-  padding: 20px;
-  background-color: var(--brand-light);
-  border-radius: 12px;
-  width: 100%;
-}
-
-.results h3 {
-  margin: 0 0 12px 0;
-  color: var(--black-80);
-}
-
-.results p {
-  margin: 8px 0;
-  font-size: 16px;
-  color: var(--black-64);
-}
-
 @media (max-width: 768px) {
   .container {
     margin: 80px auto;

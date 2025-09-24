@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-import { RoomParams } from "../RoomParams/RoomParams";
-import { OptionGroup } from "../ui/OptionGroup/OptionGroup";
-import { AddBlock } from "../ui/AddBlock/AddBlock";
-import { AddRoomItem } from "../ui/AddRoomItem/AddRoomItem";
-import { CalcButton } from "../СalcButton/CalcButton";
+import { RoomParams } from "../../components/RoomParams/RoomParams";
+import { OptionGroup } from "../../components/ui/OptionGroup/OptionGroup";
+import { AddBlock } from "../../components/ui/AddBlock/AddBlock";
+import { AddRoomItem } from "../../components/AddRoomItem/AddRoomItem";
+import { CalcButton } from "../../components/СalcButton/CalcButton";
 import { useWallpaperCalculator } from "../../hooks/useWallpaperCalculator";
 
 import styles from "./CalcPage.module.css";
 
 import magic_wand_icon from "../../assets/icons/magic-wand.svg"
+import { CalcResults } from "../../components/CalcResults/CalcResults";
 
 interface RoomData {
   length: string;
@@ -144,6 +145,7 @@ export function CalcPage() {
         </div>
       </div>
 
+      {!calculation && (
       <div className={styles.calc}>
         <CalcButton
           onClick={handleCalculate}
@@ -154,13 +156,18 @@ export function CalcPage() {
         </CalcButton>
       </div>
 
+      )}
       {calculation && (
-        <div className={styles.results}>
-          <h3>Результаты расчета:</h3>
-          <p>Рулоны: {calculation.rolls} шт.</p>
-          <p>Площадь обоев: {calculation.wallpaperArea} м²</p>
-          <p>Площадь оклейки: {calculation.wallArea} м²</p>
-        </div>
+        <CalcResults
+          rolls={calculation.rolls}
+          wallpaperArea={calculation.wallpaperArea}
+          wallArea={calculation.wallArea}
+          onReset={() => {
+            setWindows([]);
+            setDoors([]);
+          }}
+          onGoToCatalog={() => console.log("Переход в каталог")}
+        />
       )}
     </div>
   );

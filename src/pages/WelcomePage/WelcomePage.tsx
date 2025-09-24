@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { CalcButton } from "../СalcButton/CalcButton";
+import { CalcButton } from "../../components/СalcButton/CalcButton";
 import styles from "./WelcomePage.module.css";
 
 import magic_wand_icon from "../../assets/icons/magic-wand.svg"

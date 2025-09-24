@@ -1,6 +1,6 @@
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
-import { WelcomePage } from "./components/WelcomePage/WelcomePage";
-import { CalcPage } from "./components/CalcPage/CalcPage";
+import { WelcomePage } from "./pages/WelcomePage/WelcomePage";
+import { CalcPage } from "./pages/CalcPage/CalcPage";
 import styles from "./App.module.css";
 
 function App() {
