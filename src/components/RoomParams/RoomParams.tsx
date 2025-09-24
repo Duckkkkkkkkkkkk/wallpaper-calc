@@ -1,26 +1,35 @@
-import { useState, useEffect } from "react";
-import styles from "./RoomParams.module.css";
 import { InputField } from "../ui/InputField/InputField";
 
-interface RoomParamsProps {
-  onDataChange: (data: { length: string; width: string; height: string }) => void;
+import styles from "./RoomParams.module.css";
+
+export interface RoomData {
+  length: string;
+  width: string;
+  height: string;
 }
 
-export function RoomParams({ onDataChange }: RoomParamsProps) {
-  const [vals, setVals] = useState({ length: "", width: "", height: "" });
+interface RoomParamsProps {
+  roomData: RoomData;
+  onDataChange: (data: RoomData) => void;
+  errors?: { [key: string]: string };
+  inputRefs: {
+    length: React.RefObject<HTMLInputElement | null>;
+    width: React.RefObject<HTMLInputElement | null>;
+    height: React.RefObject<HTMLInputElement | null>;
+  };
+  onClearError?: (field: keyof RoomData) => void;
+}
 
-  useEffect(() => {
-    onDataChange(vals);
-  }, [vals, onDataChange]);
-
+export function RoomParams({ onDataChange, errors = {}, inputRefs, onClearError, roomData }: RoomParamsProps & { roomData: RoomData }) {
   const fields = [
     { key: "length", label: "Длина м", placeholder: "6.5" },
     { key: "width", label: "Ширина м", placeholder: "6.5" },
     { key: "height", label: "Высота м", placeholder: "2.7" },
   ] as const;
 
-  const handleChange = (key: string, value: string) => {
-    setVals((s) => ({ ...s, [key]: value }));
+  const handleChange = (key: "length" | "width" | "height", value: string) => {
+    onDataChange({ ...roomData, [key]: value });
+    if (value) onClearError?.(key);
   };
 
   return (
@@ -32,8 +41,10 @@ export function RoomParams({ onDataChange }: RoomParamsProps) {
             key={f.key}
             label={f.label}
             placeholder={f.placeholder}
-            value={(vals as any)[f.key]}
+            value={roomData[f.key]}
             onChange={(v) => handleChange(f.key, v)}
+            error={errors[f.key]}
+            ref={inputRefs?.[f.key]}
           />
         ))}
       </div>

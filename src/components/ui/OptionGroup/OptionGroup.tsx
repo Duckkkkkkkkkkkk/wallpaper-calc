@@ -9,12 +9,11 @@ interface OptionGroupProps {
     desktop: number[];
     mobile: number[];
   };
-  defaultValue?: string;
+  value?: string;
   onChange?: (value: string) => void;
 }
 
-export function OptionGroup({ title, options, widths, defaultValue, onChange }: OptionGroupProps) {
-  const [selected, setSelected] = useState(defaultValue ?? options[0]);
+export function OptionGroup({ title, options, widths, value, onChange }: OptionGroupProps) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ export function OptionGroup({ title, options, widths, defaultValue, onChange }: 
   const currentWidths = isMobile ? widths?.mobile : widths?.desktop;
 
   const handleSelect = (value: string) => {
-    setSelected(value);
     onChange?.(value);
   };
 
@@ -38,7 +36,7 @@ export function OptionGroup({ title, options, widths, defaultValue, onChange }: 
           <OptionPill
             key={o}
             value={o}
-            selected={o === selected}
+            selected={o === value}
             onClick={() => handleSelect(o)}
             style={{ width: currentWidths?.[i] ? `${currentWidths[i]}px` : "auto" }}
           />
