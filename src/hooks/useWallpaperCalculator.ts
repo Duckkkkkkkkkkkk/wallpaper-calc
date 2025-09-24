@@ -57,13 +57,12 @@ export const calculateRollsNeeded = (
   wallArea: number,
   rollParams: RollParameters,
   height: number,
-  perimeter: number,
   rapport: number
 ): CalculationResult => {
   const { width: rollWidth, length: rollLength } = rollParams;
 
   const stripHeight = height + (rapport > 0 ? Math.ceil(height / rapport) * rapport - height : 0);
-//   const totalStripsNeeded = Math.ceil(perimeter / rollWidth);
+
   const totalStripsNeeded = Math.ceil(wallArea / (rollWidth * height));
 
   const stripsPerRoll = Math.floor(rollLength / stripHeight);
@@ -99,9 +98,7 @@ export const useWallpaperCalculator = () => {
 
     const wallArea = calculateWallArea(length, width, height, windows, doors);
 
-    const perimeter = 2 * (length + width);
-
-    const result = calculateRollsNeeded(wallArea, rollParams, height, perimeter, rapportValue);
+    const result = calculateRollsNeeded(wallArea, rollParams, height, rapportValue);
 
     setCalculation(result);
     return result;
