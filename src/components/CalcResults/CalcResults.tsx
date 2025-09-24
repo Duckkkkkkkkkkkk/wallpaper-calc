@@ -1,14 +1,17 @@
 import styles from "./CalcResults.module.css";
 
+import share_icon from "../../assets/icons/share.svg"
+
 interface CalcResultsProps {
   rolls: number;
   wallpaperArea: number;
   wallArea: number;
   onReset: () => void;
   onGoToCatalog: () => void;
+  onSendEmail: () => void;
 }
 
-export function CalcResults({ rolls, wallpaperArea, wallArea, onReset, onGoToCatalog }: CalcResultsProps) {
+export function CalcResults({ rolls, wallpaperArea, wallArea, onReset, onGoToCatalog, onSendEmail }: CalcResultsProps) {
   return (
     <section className={styles.results}>
       <div className={styles.inner}>
@@ -35,6 +38,10 @@ export function CalcResults({ rolls, wallpaperArea, wallArea, onReset, onGoToCat
           </button>
           <button className={`${styles.button} ${styles.catalog}`} onClick={onGoToCatalog}>
             Перейти в каталог
+          </button>
+          <button className={`${styles.button} ${styles.email}`} onClick={onSendEmail}>
+            <img src={share_icon} alt="Поделиться" />
+            Поделиться
           </button>
         </div>
       </div>

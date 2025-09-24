@@ -1,3 +1,4 @@
+import emailjs from "emailjs-com";
 import { useState, useEffect, useRef} from "react";
 import { RoomParams } from "../../components/RoomParams/RoomParams";
 import { OptionGroup } from "../../components/ui/OptionGroup/OptionGroup";
@@ -6,6 +7,7 @@ import { AddRoomItem } from "../../components/AddRoomItem/AddRoomItem";
 import { CalcButton } from "../../components/СalcButton/CalcButton";
 import { useWallpaperCalculator } from "../../hooks/useWallpaperCalculator";
 import { CalcResults } from "../../components/CalcResults/CalcResults";
+import { EmailModal } from "../../components/EmailModal/EmailModal";
 import type { RoomData } from "../../components/RoomParams/RoomParams";
 
 import styles from "./CalcPage.module.css";
@@ -26,6 +28,7 @@ export function CalcPage() {
   const [doors, setDoors] = useState<OpeningData[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const { calculation, calculate, reset } = useWallpaperCalculator();
 
@@ -114,6 +117,32 @@ export function CalcPage() {
     );
 
     console.log("Результаты расчета:", result);
+  };
+
+  const handleSendEmail = async (email: string) => {
+    if (!calculation) return;
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error("Некорректный email");
+    }
+
+    try {
+      await emailjs.send(
+        "service_9av9e6n",
+        "template_kbexyrv",
+        {
+          user_email: email,
+          rolls: calculation.rolls,
+          wallpaperArea: calculation.wallpaperArea,
+          wallArea: calculation.wallArea,
+        },
+        "wlkvlrGpoUcLo--Eu"
+      );
+    } catch (error) {
+      console.error(error);
+      throw new Error("Не удалось отправить письмо");
+    }
   };
 
   return (
@@ -207,8 +236,16 @@ export function CalcPage() {
             reset();
           }}
           onGoToCatalog={() => console.log("Переход в каталог")}
+          onSendEmail={() => setIsEmailModalOpen(true)}
         />
       )}
+
+      <EmailModal
+        isOpen={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+        onSend={handleSendEmail}
+        results={calculation || { rolls: 0, wallpaperArea: 0, wallArea: 0 }}
+      />
     </div>
   );
 }

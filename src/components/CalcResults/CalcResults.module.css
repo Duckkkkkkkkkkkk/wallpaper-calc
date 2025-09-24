@@ -27,7 +27,7 @@
 
 .valuesRow {
   display: flex;
-  justify-content:left;
+  justify-content: left;
   gap: 54px;
   margin: 24px 0 32px 0;
   flex-wrap: wrap;
@@ -92,6 +92,27 @@
 }
 
 .reset:active {
+  background: var(--brand-btn-active);
+}
+
+.email {
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.email img {
+    width: 20px;
+    height: 20px;
+}
+
+.email:hover {
+  background: var(--brand-btn-hover);
+}
+
+.email:active {
   background: var(--brand-btn-active);
 }
 
