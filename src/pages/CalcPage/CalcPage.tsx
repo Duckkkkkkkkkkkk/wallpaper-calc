@@ -26,6 +26,7 @@ export function CalcPage() {
   const [rapport, setRapport] = useState("0");
   const [windows, setWindows] = useState<OpeningData[]>([]);
   const [doors, setDoors] = useState<OpeningData[]>([]);
+  const [openingErrors, setOpeningErrors] = useState<Record<string, { width?: string; height?: string }>>({});
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
@@ -95,10 +96,45 @@ export function CalcPage() {
     else setDoors((s) => s.filter((d) => d.id !== id));
   };
 
-  const handleOpeningChange = (type: "window" | "door", id: string, field: "width" | "height", value: string) => {
+  const handleOpeningChange = (
+    type: "window" | "door",
+    id: string,
+    field: "width" | "height",
+    value: string
+  ) => {
+    let num = parseFloat(value);
+    if (isNaN(num)) num = 0;
+
+    let error = "";
+    
+    if (field === "width") {
+      const maxWidth = Math.max(parseFloat(roomData.width) || 0, parseFloat(roomData.length) || 0);
+      if(num > maxWidth) {
+        num = maxWidth;
+        error = `Макс: ${maxWidth} м`;
+      }
+    }
+
+    if (field === "height") {
+      const maxHeight = parseFloat(roomData.height) || Infinity;
+      if(num > maxHeight)
+        {
+          num = maxHeight;
+          error = `Макс: ${maxHeight} м`;
+        }
+    }
+
+    setOpeningErrors((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: error,
+      },
+    }));
+
     const setter = type === "window" ? setWindows : setDoors;
     setter(prev => prev.map(item => 
-      item.id === id ? { ...item, [field]: value } : item
+      item.id === id ? { ...item, [field]: String(num) } : item
     ));
   };
 
@@ -184,6 +220,7 @@ export function CalcPage() {
               onRemove={() => handleRemove("window", window.id)}
               onDataChange={(field, value) => handleOpeningChange("window", window.id, field, value)}
               data={window}
+              error={openingErrors[window.id] || {}}
             />
           ))}
           <AddBlock
@@ -201,6 +238,7 @@ export function CalcPage() {
               onRemove={() => handleRemove("door", door.id)}
               onDataChange={(field, value) => handleOpeningChange("door", door.id, field, value)}
               data={door}
+              error={openingErrors[door.id] || {}}
             />
           ))}
           <AddBlock

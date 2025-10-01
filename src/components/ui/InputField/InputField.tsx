@@ -34,7 +34,7 @@ export const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
       const normalizedValue = inputValue.replace(/,/g, ".");
 
-      if (normalizedValue === "" || normalizedValue === "-" || /^-?\d*\.?\d*$/.test(normalizedValue)) {
+      if (normalizedValue === "" || /^\d*\.?\d*$/.test(normalizedValue)) {
         setDisplayValue(inputValue);
         onChange?.(normalizedValue);
       }

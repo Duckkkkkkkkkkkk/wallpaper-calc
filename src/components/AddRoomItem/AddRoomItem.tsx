@@ -10,9 +10,10 @@ interface AddRoomItemProps {
   onRemove: () => void;
   onDataChange: (field: "width" | "height", value: string) => void;
   data: { width: string; height: string };
+  error?: { width?: string; height?: string };
 }
 
-export function AddRoomItem({ type, onRemove, onDataChange, data }: AddRoomItemProps) {
+export function AddRoomItem({ type, onRemove, onDataChange, data, error }: AddRoomItemProps) {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
 
   useEffect(() => {
@@ -40,6 +41,7 @@ export function AddRoomItem({ type, onRemove, onDataChange, data }: AddRoomItemP
           onChange={(v) => handleValueChange("width", v)}
           placeholder="0"
           style={{ width: `${inputWidth}px` }}
+          error={error?.width}
         />
         <InputField
           label="Высота"
@@ -47,6 +49,7 @@ export function AddRoomItem({ type, onRemove, onDataChange, data }: AddRoomItemP
           onChange={(v) => handleValueChange("height", v)}
           placeholder="0"
           style={{ width: `${inputWidth}px` }}
+          error={error?.height}
         />
       </div>
     </div>
