@@ -84,9 +84,9 @@ export function CalcPage() {
     };
 
     if (type === "window") {
-      setWindows((s) => s.length === 0 ? [newItem, { ...newItem, id: crypto.randomUUID() }] : [...s, newItem]);
+      setWindows((s) => [...s, newItem]);
     } else {
-      setDoors((s) => s.length === 0 ? [newItem, { ...newItem, id: crypto.randomUUID() }] : [...s, newItem]);
+      setDoors((s) => [...s, newItem]);
     }
   };
 
